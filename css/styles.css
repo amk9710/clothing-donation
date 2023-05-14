@@ -4,7 +4,7 @@ body,
 #main-container {
   height: 100%;
   width: 100%;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 body {
@@ -47,40 +47,19 @@ nav {
   font-size: 0.9rem;
   overflow-y: scroll;
   box-sizing: border-box;
+  background-color: #edeaea;
 }
+
+.bi-recycle {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
 
 #map {
   height: 100%;
   flex-grow: 1;
-}
-
-#legend {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-#legend .legend-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
-}
-
-#legend .legend-item div {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-  border-radius: 3px;
-}
-
-#legend .legend-title {
-  font-weight: 600;
-  margin-bottom: 5px;
 }
 
 .title {
@@ -101,20 +80,27 @@ nav {
     width: 100%;
   }
 }
-
-#map {
+#geocoder {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 200px; /* or the same width as your sidebar */
-  right: 0;
-  width: auto;
-  margin-left: 200px; /* or the same width as your sidebar */
+  top: 10px;
+  left: 10px;
+  width: 50%;
+  z-index: 2;
+}
+#marker-button {
+  position: absolute;
+  bottom: 100px;
+  left: 10px;
+  z-index: 1;
+  background-color: #4285F4;
+  color: #FFFFFF;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
-.popup-content {
-  font-size: 1.2rem;
-  font-weight: 500;
-  padding: 10px;
-  text-align: center;
+#marker-button:hover {
+  background-color: #3367D6;
 }
