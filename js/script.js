@@ -5,8 +5,11 @@ const map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/amk9710/clhmt6ral00cw01pfajgb1576',
   center: [-73.9712, 40.7831],
-  zoom: 10
+  zoom: 9.5
 });
+
+let currentFilter = null; // Variable to store the current filter value
+
 
 map.on('load', function () {
 
@@ -22,12 +25,12 @@ map.on('load', function () {
     source: 'my-points',
     paint: {
       'circle-radius': 8,
-      'circle-opacity': 0.6,
+      'circle-opacity': 0.7,
       'circle-color': [
         'match',
         ['get', 'type'],
-        'donation ', '#3358ff', // Change to your desired color for the 'donation' type
-        'recycling ', '#ff5733', // Change to your desired color for the 'recycling' type
+        'donation ', '#1f78b4', 
+        'recycling ', '#ff7f00', 
         '#808080' // Default color if type doesn't match any of the above
       ]
       }
@@ -52,11 +55,41 @@ $('#sidebar').append(geocoder.onAdd(map));
 map.addControl(new mapboxgl.NavigationControl());
 
 
+function filterPoints(type) {
+  if (type === currentFilter) return; // If the same filter is already applied, do nothing
+
+  currentFilter = type; // Update the current filter value
+
+  // Update the filter on the layer
+  map.setFilter('circle-my-points', ['==', 'type', type]);
+}
+
+// Attach click event listener to the button
+$('#showDonationButton').on('click', function () {
+  filterPoints('donation ');
+});
+
+$('#showRecycleButton').on('click', function () {
+  filterPoints('recycling ');
+});
+
+// Attach click event listener to the "Clear Filter" button
+$('#clearFilterButton').on('click', function () {
+  clearFilter();
+});
+
+function clearFilter() {
+  if (currentFilter !== null) {
+    // Remove the filter on the layer
+    map.setFilter('circle-my-points', ['has', 'type']);
+    currentFilter = null; // Reset the current filter value
+  }
+}
 
 // Change cursor to pointer when hovering over parks layer
-map.on('mouseenter', 'parks', function () {
+map.on('mouseenter', 'circle-my-points', function () {
   map.getCanvas().style.cursor = 'pointer';
 });
-map.on('mouseleave', 'parks', function () {
+map.on('mouseleave', 'circle-my-points', function () {
   map.getCanvas().style.cursor = '';
 });
