@@ -54,6 +54,19 @@ nav {
   
 }
 
+#content {
+  margin-top: auto;
+}
+
+.property {
+  margin-bottom: 10px;
+  bottom: 10px;
+}
+
+.property strong {
+  font-weight: bold;
+}
+
 #map {
   height: 100%;
   flex-grow: 1;
@@ -83,9 +96,9 @@ nav {
 }
 #geocoder {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 50%;
+  bottom: 10px;
+  left: calc(50% - 120px); /* Adjust the value as needed */
+  width: 240px; /* Adjust the value as needed */
   z-index: 1;
 }
 
@@ -115,6 +128,21 @@ nav {
   font-family: 'Ubuntu', sans-serif;
   font-size: 1rem;
 }
+
+#showSellButton {
+  margin: 5px;
+  padding: 10px 15px;
+  background-color: #e31a1c;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  font-weight: 700;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1rem;
+}
+
 
 #clearFilterButton {
   margin: 5px;
