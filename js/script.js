@@ -29,7 +29,7 @@ map.on('load', function () {
       'circle-color': [
         'match',
         ['get', 'type'],
-        'donation ', '#1f78b4', 
+        'donation ', '#33a02c', 
         'recycling ', '#ff7f00', 
         '#808080' // Default color if type doesn't match any of the above
       ]
@@ -86,7 +86,7 @@ function clearFilter() {
   }
 }
 
-// Change cursor to pointer when hovering over parks layer
+
 map.on('mouseenter', 'circle-my-points', function () {
   map.getCanvas().style.cursor = 'pointer';
 });
