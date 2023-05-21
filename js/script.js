@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
   mapboxgl.accessToken = 'pk.eyJ1IjoiYW1rOTcxMCIsImEiOiJjbGc1cWRtNTIwNWl0M2VuNW9yZTJxYmJ2In0.BR49nDMsJOC3F0VxtVqT9Q';
   const map = new mapboxgl.Map({
     container: 'map',
@@ -8,6 +8,7 @@ $(document).ready(function() {
   });
 
   let currentFilter = null;
+  let allMarkersShowing = false;
 
   map.on('load', function () {
     map.addSource('my-points', {
@@ -22,8 +23,8 @@ $(document).ready(function() {
       paint: {
         'circle-radius': [
           'interpolate', ['linear'], ['zoom'],
-          10, 8,
-          18, 16
+          10, 6,
+          18, 14
         ],
         'circle-opacity': 0.7,
         'circle-color': [
@@ -53,15 +54,23 @@ $(document).ready(function() {
     function showProperties(properties) {
       // Clear the previous properties
       $('#sidebar #content').empty();
-    
+
       // Create and append the property elements
       var name = properties['Name'];
-      var nameElement = $('<p>').addClass('property').text(name).css('font-weight', 'bold');
+      var nameElement = $('<p>').addClass('property').css('font-weight', 'bold');
+      var link = properties['Link'];
+      if (link) {
+        var linkIcon = $('<i>').addClass('fas fa-globe');
+        var linkAnchor = $('<a>').attr('href', link).attr('target', '_blank').append(linkIcon);
+        var linkWrapper = $('<span>').addClass('link-wrapper').append(linkAnchor).css('margin-right', '5px');
+        nameElement.append(linkWrapper);
+      }
+      nameElement.append(name);
       $('#sidebar #content').append(nameElement);
-    
-      var openingHours = properties['Opening Hours'];
+
+      var openingHours = properties['Dropoff'];
       if (openingHours) {
-        var openingHoursElement = $('<p>').addClass('property').text('Opening Hours: ' + openingHours);
+        var openingHoursElement = $('<p>').addClass('property').text('Dropoff Time: ' + openingHours);
         $('#sidebar #content').append(openingHoursElement);
       }
 
@@ -70,48 +79,91 @@ $(document).ready(function() {
         var collectionDetailsElement = $('<p>').addClass('property').text('Collection Details: ' + collectionDetails);
         $('#sidebar #content').append(collectionDetailsElement);
       }
-    
+
       var address = properties['Address'];
       if (address) {
-        var addressElement = $('<p>').addClass('property').html('Address: <a href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(address) + '" target="_blank">' + address + '</a>');
+        var addressElement = $('<p>').addClass('property').html('<a href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(address) + '" target="_blank">' + address + '</a>');
         $('#sidebar #content').append(addressElement);
       }
-    
-      var link = properties['Link'];
-      if (link) {
-        var linkElement = $('<p>').addClass('property').html(' <a href="' + link + '" target="_blank">' + link + '</a>');
-        $('#sidebar #content').append(linkElement);
-      }
     }
-    
 
     $('#showDonationButton').on('click', function () {
       filterPoints('Donate');
+      updateActiveButton('#showDonationButton');
     });
 
     $('#showRecycleButton').on('click', function () {
       filterPoints('Recycle');
+      updateActiveButton('#showRecycleButton');
     });
 
     $('#showSellButton').on('click', function () {
       filterPoints('Sell');
+      updateActiveButton('#showSellButton');
     });
 
-    $('#clearFilterButton').on('click', function () {
-      clearFilter();
+    $('#showAllButton').on('click', function () {
+      showAllMarkers();
     });
 
-    function filterPoints(Type) {
-      if (Type === currentFilter) return;
-      currentFilter = Type;
-      map.setFilter('circle-my-points', ['==', 'Type', Type]);
+    function updateActiveButton(buttonId) {
+      $('.filter-button').parent().removeClass('active');
+      $(buttonId).parent().addClass('active');
     }
 
-    function clearFilter() {
-      if (currentFilter !== null) {
-        map.setFilter('circle-my-points', ['has', 'Type']);
-        currentFilter = null;
+    function filterPoints(type) {
+      if (type === currentFilter) {
+        return;
+      }
+
+      map.setFilter('circle-my-points', ['==', ['get', 'Type'], type]);
+      currentFilter = type;
+      updateShowAllButtonVisibility();
+    }
+
+    function showAllMarkers() {
+      map.setFilter('circle-my-points', null);
+      currentFilter = null;
+      updateShowAllButtonVisibility();
+    }
+
+    function updateShowAllButtonVisibility() {
+      allMarkersShowing = (currentFilter === null);
+      if (allMarkersShowing) {
+        $('#showAllButton').hide();
+      } else {
+        $('#showAllButton').show();
       }
     }
+
+    // Hide the showAllButton initially
+    $('#showAllButton').hide();
+
+    var geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl,
+      marker: {
+        color: '#444444', // Dark gray marker color
+        draggable: false // Disable marker dragging
+      }, 
+      countries: 'us', 
+      placeholder: 'Search for an address', 
+      proximity: {
+        longitude: -74.0060, // NYC longitude
+        latitude: 40.7128 // NYC latitude
+      },
+      bbox: [-74.2557, 40.4957, -73.6895, 40.9156] // NYC bounding box
+    });
+
+    var geocoderContainer = $('<div>').addClass('geocoder-container').append(geocoder.onAdd(map));
+    $('#sidebar').prepend(geocoderContainer);
+    
+    geocoder.on('result', function (e) {
+      if (!allMarkersShowing) {
+        showAllMarkers();
+      }
+      var properties = e.result.properties;
+      showProperties(properties);
+    });
   });
 });

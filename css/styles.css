@@ -43,15 +43,18 @@ nav {
 }
 
 #sidebar {
-  width: 348px;
+  width: 332px;
   padding: 1rem;
   font-size: 0.9rem;
   font-family: 'Ubuntu', sans-serif;
-  overflow-y: scroll;
   box-sizing: border-box;
   background-color: #edeaea;
   color: #595959;
   
+}
+
+#sidebar h3 {
+  text-align: center;
 }
 
 #content {
@@ -60,7 +63,6 @@ nav {
 
 .property {
   margin-bottom: 10px;
-  bottom: 10px;
 }
 
 .property strong {
@@ -95,13 +97,19 @@ nav {
   }
 }
 #geocoder {
+  display: block;
   position: absolute;
   bottom: 10px;
-  left: calc(50% - 120px); /* Adjust the value as needed */
-  width: 240px; /* Adjust the value as needed */
+  left: calc(50% - 120px); 
+  width: 240px; 
   z-index: 1;
 }
 
+.geocoder-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
 
 #showDonationButton {
   margin: 5px;
@@ -114,6 +122,10 @@ nav {
   font-weight: 700;
   font-family: 'Ubuntu', sans-serif;
   font-size: 1rem;
+}
+
+#showDonationButton.active {
+  background-color: #218022;
 }
 
 #showRecycleButton {
@@ -129,6 +141,10 @@ nav {
   font-size: 1rem;
 }
 
+#showRecycleButton.active {
+  background-color: #c06804;
+}
+
 #showSellButton {
   margin: 5px;
   padding: 10px 15px;
@@ -137,15 +153,18 @@ nav {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-
   font-weight: 700;
   font-family: 'Ubuntu', sans-serif;
   font-size: 1rem;
 }
 
+#showSellButton.active {
+  background-color: #970f11;
+}
 
-#clearFilterButton {
-  margin: 5px;
+#showAllButton {
+  margin: 5px auto;
+  display: block;
   padding: 10px 15px;
   background-color: #7e7973;
   color: #ffffff;
@@ -155,4 +174,9 @@ nav {
   font-weight: 700;
   font-family: 'Ubuntu', sans-serif;
   font-size: 1rem;
+}
+
+
+#showAllButton.active {
+  background-color: #625c58;
 }
