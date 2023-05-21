@@ -33,7 +33,7 @@ nav {
 
 .nav-link {
   display: inline-block;
-  font-size: .9rem;
+  font-size: .8rem;
 }
 
 #content-container {
@@ -50,7 +50,7 @@ nav {
   box-sizing: border-box;
   background-color: #edeaea;
   color: #595959;
-  
+
 }
 
 #sidebar h3 {
@@ -79,6 +79,7 @@ nav {
   font-weight: 800;
   font-family: 'Ubuntu', sans-serif;
   color: #595959;
+  margin-bottom: .5rem;
 
 }
 
@@ -95,13 +96,23 @@ nav {
   #sidebar {
     width: 100%;
   }
+  title {
+    font-size: 1.5rem;
+    padding: 1rem;
+    margin-bottom: .5rem;
+  }
+
+  nav {
+    padding: 1.5rem 1rem;
+  }
 }
+
 #geocoder {
   display: block;
   position: absolute;
   bottom: 10px;
-  left: calc(50% - 120px); 
-  width: 240px; 
+  left: calc(50% - 120px);
+  width: 240px;
   z-index: 1;
 }
 
@@ -109,10 +120,20 @@ nav {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+}
+#button-group {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
+
 #showDonationButton {
-  margin: 5px;
+  margin: 5px auto;
+  display: inline-block;
   padding: 10px 15px;
   background-color: #33a02c;
   color: #ffffff;
@@ -129,7 +150,8 @@ nav {
 }
 
 #showRecycleButton {
-  margin: 5px;
+  margin: 5px auto;
+  display: inline-block;
   padding: 10px 15px;
   background-color: #ff7f00;
   color: #ffffff;
@@ -146,7 +168,8 @@ nav {
 }
 
 #showSellButton {
-  margin: 5px;
+  margin: 5px auto;
+  display: inline-block;
   padding: 10px 15px;
   background-color: #e31a1c;
   color: #ffffff;

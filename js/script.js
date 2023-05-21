@@ -60,7 +60,7 @@ $(document).ready(function () {
       var nameElement = $('<p>').addClass('property').css('font-weight', 'bold');
       var link = properties['Link'];
       if (link) {
-        var linkIcon = $('<i>').addClass('fas fa-globe');
+        var linkIcon = $('<i>').addClass('fas fa-link');
         var linkAnchor = $('<a>').attr('href', link).attr('target', '_blank').append(linkIcon);
         var linkWrapper = $('<span>').addClass('link-wrapper').append(linkAnchor).css('margin-right', '5px');
         nameElement.append(linkWrapper);
