@@ -96,34 +96,28 @@ nav {
   #sidebar {
     width: 100%;
   }
-  title {
+  .title {
     font-size: 1.5rem;
-    padding: 1rem;
-    margin-bottom: .5rem;
+    margin-bottom: 1rem;
   }
 
-  nav {
-    padding: 1.5rem 1rem;
+  .nav {
+    padding: 1rem 1rem;
   }
 }
 
-#geocoder {
-  display: block;
+
+
+
+.geocoder-container {
   position: absolute;
-  bottom: 10px;
-  left: calc(50% - 120px);
-  width: 240px;
+  top: 10px;
+  left: 10px;
+  padding: 5px;
   z-index: 1;
 }
 
-.geocoder-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-  font-family: 'Ubuntu', sans-serif;
-  font-weight: normal;
-  font-size: 14px;
-}
+
 #button-group {
   display: flex;
   justify-content: center;
@@ -146,7 +140,7 @@ nav {
 }
 
 #showDonationButton.active {
-  background-color: #218022;
+  border: 2px solid black;
 }
 
 #showRecycleButton {
@@ -164,7 +158,7 @@ nav {
 }
 
 #showRecycleButton.active {
-  background-color: #c06804;
+  border: 2px solid black
 }
 
 #showSellButton {
@@ -182,7 +176,7 @@ nav {
 }
 
 #showSellButton.active {
-  background-color: #970f11;
+  border: 2px solid black
 }
 
 #showAllButton {
@@ -197,9 +191,4 @@ nav {
   font-weight: 700;
   font-family: 'Ubuntu', sans-serif;
   font-size: 1rem;
-}
-
-
-#showAllButton.active {
-  background-color: #625c58;
 }
